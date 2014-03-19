@@ -1,6 +1,6 @@
 # Finna Pomodoro
 
-The finna pomodoro project aims to bring a modern pomodoro implementation t=
+The finna pomodoro project aims to bring a modern pomodoro implementation to
 your desktop.
 
 The _modern_ feature comes from a complete separation of the logic (backend)
