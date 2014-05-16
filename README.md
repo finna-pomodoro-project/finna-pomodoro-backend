@@ -14,7 +14,7 @@ handle the pomodoro logic and communication among the interested parties.
 
 # Features
 
-- Complete separation of the login (backend) from the user interfaces.
+- Complete separation of the logic (backend) from the user interfaces.
 - Backend written in C++11 using robust timing abstractions.
 - Real-time pomodoro with robust numerical methods.
 - A DBus-based protocol designed to minimize possible bugs in clients.
@@ -25,7 +25,7 @@ handle the pomodoro logic and communication among the interested parties.
 
 # Dependencies
 
-This daemon is written in C++ and depends on the glibmm library. You'll also
+This daemon is written in C++11 and depends on the glibmm library. You'll also
 need CMake to build the project. For short, CMake is the meta-build system and
 is used to generate a build system that your platform supports.
 
