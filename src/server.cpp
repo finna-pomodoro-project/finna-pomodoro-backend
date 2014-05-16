@@ -50,6 +50,10 @@ return R"xml(
       <arg type="u" name="seconds" direction="out" />
     </method>
 
+    <method name="is_working_time">
+      <arg type="b" direction="out" />
+    </method>
+
     <method name="is_running">
       <arg type="b" direction="out" />
     </method>
