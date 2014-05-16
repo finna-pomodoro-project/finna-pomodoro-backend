@@ -12,6 +12,17 @@ the **same** pomodoro? With Finna Pomodoro, you can!
 This repository will host the Finna Pomodoro Daemon. It's the application that
 handle the pomodoro logic and communication among the interested parties.
 
+# Features
+
+- Complete separation of the login (backend) from the user interfaces.
+- Backend written in C++11 using robust timing abstractions.
+- Real-time pomodoro with robust numerical methods.
+- A DBus-based protocol designed to minimize possible bugs in clients.
+- Ninjas! No, just kidding, but the protocol is so well designed that allows
+  flexible implementation by defining optional parts that would restrict
+  implementers' creativity.
+- DRM-free!
+
 # Dependencies
 
 This daemon is written in C++ and depends on the glibmm library. You'll also

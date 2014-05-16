@@ -1,5 +1,6 @@
 set(finnapomodorod_SRC
   main.cpp
+  server.cpp
 )
 
 add_definitions(-Wall
