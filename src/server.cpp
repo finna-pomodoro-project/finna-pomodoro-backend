@@ -202,13 +202,13 @@ void Server::current_countdown(const RefPtr<MethodInvocation> &invocation) const
     invocation->return_value(VariantContainerBase::create_tuple(countdown));
 }
 
-void Server::is_working_time(const RefPtr<MethodInvocation> &invocation)
+void Server::is_working_time(const RefPtr<MethodInvocation> &invocation) const
 {
     auto is_running = Variant<bool>::create(next_period % 2);
     invocation->return_value(VariantContainerBase::create_tuple(is_running));
 }
 
-void Server::is_running(const RefPtr<MethodInvocation> &invocation)
+void Server::is_running(const RefPtr<MethodInvocation> &invocation) const
 {
     auto is_running = Variant<bool>::create(is_running_);
     invocation->return_value(VariantContainerBase::create_tuple(is_running));

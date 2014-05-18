@@ -16,8 +16,8 @@ public:
     void resume();
     void toggle();
     void current_countdown(const Glib::RefPtr<Gio::DBus::MethodInvocation> &invocation) const;
-    void is_working_time(const Glib::RefPtr<Gio::DBus::MethodInvocation> &invocation);
-    void is_running(const Glib::RefPtr<Gio::DBus::MethodInvocation> &invocation);
+    void is_working_time(const Glib::RefPtr<Gio::DBus::MethodInvocation> &invocation) const;
+    void is_running(const Glib::RefPtr<Gio::DBus::MethodInvocation> &invocation) const;
 
 private:
     // # METHODS:
