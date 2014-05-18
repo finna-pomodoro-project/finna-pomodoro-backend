@@ -34,7 +34,7 @@ GNU/Linux nowadays and you'll likely find in any GNU/Linux system.
 
 ## Building
 
-You strongly suggest you to ask packagers from your distribution to create an
+We strongly suggest you to ask packagers from your distribution to create an
 user-friendly and easy-to-install package. This section is aimed to more
 experienced users that wish to build from scratch (packagers and developers).
 
