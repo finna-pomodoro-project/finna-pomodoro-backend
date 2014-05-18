@@ -259,7 +259,7 @@ void Server::on_method_call(const RefPtr<Connection> &/*connection*/,
     } else if (method_name == "current_countdown") {
         current_countdown(invocation);
     } else if (method_name == "is_working_time") {
-        current_countdown(invocation);
+        is_working_time(invocation);
     } else if (method_name == "is_running") {
         is_running(invocation);
     } else {
