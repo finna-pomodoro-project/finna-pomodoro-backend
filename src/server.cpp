@@ -21,6 +21,7 @@
 #include <iostream>
 #include <cstdint>
 #include <cassert>
+#include <cstdlib>
 #include <array>
 
 #include <giomm/dbusownname.h>
@@ -31,6 +32,7 @@ using std::chrono::steady_clock;
 using std::chrono::duration_cast;
 using std::cout;
 using std::endl;
+using std::exit;
 using Glib::RefPtr;
 using Glib::ustring;
 using Glib::VariantContainerBase;
@@ -102,7 +104,8 @@ Server::Server() :
     };
 
     auto name_lost = [](const RefPtr<Connection>&, ustring name) {
-        cout << "Name \"" << name << "\" lost" << endl;
+        cout << "Name \"" << name << "\" lost. Aborting." << endl;
+        exit(EXIT_FAILURE);
     };
 
     id = own_name(BusType::BUS_TYPE_SESSION, "io.github.finna_pomodoro_project",
