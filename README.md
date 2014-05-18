@@ -18,6 +18,7 @@ handle the pomodoro logic and communication among the interested parties.
 - Backend written in C++11 using robust timing abstractions.
 - Real-time pomodoro with robust numerical methods.
 - A DBus-based protocol designed to minimize possible bugs in clients.
+- Second-based precision on timeout requests to optimize battery life.
 - Ninjas! No, just kidding, but the protocol is so well designed that allows
   flexible implementation by defining optional parts that would restrict
   implementers' creativity.
