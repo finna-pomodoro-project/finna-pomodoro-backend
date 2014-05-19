@@ -57,8 +57,10 @@ This interfaces exposes the following methods:
   because it won't suffer interference dependant upon delivery order.
 - `bool is_running()`: Return `true` if pomodoro is running or `false`
   otherwise.
-- `bool is_working_time()`: Return `true` if it is working time or `false`
-  otherwise.
+- `bool is_working_time()`: Return `true` if, and only if, the client should
+  consider it is working time when `is_running()` returns `true`. This choice
+  has been made to allow richer interfaces that will let the user know if it
+  will be working time or not prior to requesting the pomodoro to resume.
 - `uint32_t current_countdown()`: Return (as an `uint32_t`) the time (in
   seconds) remaining until the pomodoro changes its state (time to
   work/procrastinate). `uint32_t` type was chosen instead `uint64_t` to
