@@ -302,34 +302,48 @@ bool Server::on_timeout()
     // overflows).
 
     {
-        /* target_time_point is a cache of the desired value and isn't correct.
-
-           We proceed with the incorrect value anyway to avoid possible slow
-           implementations and repeat the procedure for the real target
-           afterwards. */
         auto cached_time_point = steady_clock::now();
 
-        while (last_resumed + seconds{remaining_sec} < cached_time_point)
-            iterate_pomodoro();
+        {
+            /* In this first block we do full session iterations. `next_period`
+               variable is only updated during full session iterations.
 
-        while (last_resumed + seconds{remaining_sec} < steady_clock::now())
-            iterate_pomodoro();
-    }
+               target_time_point is a cache of the desired value and isn't
+               correct.
 
-    {
-        auto elapsed = steady_clock::now() - last_resumed;
+               We proceed with the incorrect value anyway to avoid possible slow
+               implementations and repeat the procedure for the real target
+               afterwards. */
 
-        while (elapsed > seconds{remaining_sec}) {
-            iterate_pomodoro();
-            elapsed = steady_clock::now() - last_resumed;
+            while (last_resumed + seconds{remaining_sec} < cached_time_point)
+                iterate_pomodoro();
+
+            auto update = [&]() { cached_time_point = steady_clock::now(); };
+
+            for (update()
+                     ;last_resumed + seconds{remaining_sec} <= cached_time_point
+                     ;update()) {
+                iterate_pomodoro();
+            }
         }
 
-        remaining_sec -= duration_cast<seconds>(elapsed).count();
+        {
+            /* In this second block we do partial session iterations.
 
-        last_resumed = steady_clock::now();
-        on_timeout_connection = signal_timeout()
-            .connect_seconds(sigc::mem_fun(*this, &Server::on_timeout),
-                             remaining_sec);
+               Do not use steady_clock::now() from now on. Result is always
+               inaccurate and we'll catch up on the next iteration. Because
+               there are no more updates to the time_point here, there is no
+               need to call `iterate_pomodoro()`.*/
+
+            auto elapsed = cached_time_point - last_resumed;
+            auto diff = duration_cast<seconds>(elapsed);
+            remaining_sec -= diff.count();
+            last_resumed += diff;
+
+            on_timeout_connection = signal_timeout()
+                .connect_seconds(sigc::mem_fun(*this, &Server::on_timeout),
+                                 remaining_sec);
+        }
     }
 
     // asynchronous operations are done by last
