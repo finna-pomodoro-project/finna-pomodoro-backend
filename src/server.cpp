@@ -355,7 +355,7 @@ bool Server::on_timeout()
     }
 
     // if function was called too soon, stop earlier
-    if (changed)
+    if (!changed)
         return retval;
 
     // asynchronous operations are done by last
