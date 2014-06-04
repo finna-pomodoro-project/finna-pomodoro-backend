@@ -66,6 +66,7 @@ private:
 
     // # Pomodoro state related ATTRIBUTES
 
+    bool changed;
     int remaining_sec = 25 * 60;
     int next_period = 1; // index for periods_in_sec
     bool is_running_ = false;

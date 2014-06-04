@@ -250,6 +250,7 @@ void Server::send_signal(const ustring& signal)
 
 void Server::iterate_pomodoro()
 {
+    changed = true;
     last_resumed += seconds{remaining_sec};
     remaining_sec = periods_in_sec[next_period++];
     next_period %= periods_in_sec.size();
@@ -301,6 +302,13 @@ bool Server::on_timeout()
     // Just a little paranoid, because we don't go much further (eg. integer
     // overflows).
 
+    /* The return value is equivalent to the call
+       `on_timeout_connection.disconnect()` with the old `on_timeout_connection`
+       object/value. */
+    const auto retval = false;
+
+    changed = false;
+
     {
         auto cached_time_point = steady_clock::now();
 
@@ -346,14 +354,16 @@ bool Server::on_timeout()
         }
     }
 
+    // if function was called too soon, stop earlier
+    if (changed)
+        return retval;
+
     // asynchronous operations are done by last
+
     if (next_period % 2)
         send_signal("work_session_started");
     else
         send_signal("work_session_stopped");
 
-    /* The return value is equivalent to the call
-       `on_timeout_connection.disconnect()` with the old `on_timeout_connection`
-       object/value. */
-    return false;
+    return retval;
 }
